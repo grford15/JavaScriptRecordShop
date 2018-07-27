@@ -5,29 +5,30 @@ describe("Record", function() {
   let record;
 
   beforeEach(function() {
-    record = new Record();
+    record = new Record("Jay-Z", "The Black Album", "Hip-Hop", 10);
   })
 
-  xit('should have an Artists', function() {
-
+  it('should have an Artists', function() {
+    assert.deepStrictEqual(record.artist, "Jay-Z")
   })
 
-  xit('should have a title', function() {
-
+  it('should have a title', function() {
+    assert.deepStrictEqual(record.title, "The Black Album")
   })
 
-  xit('should have a genre', function() {
-
+  it('should have a genre', function() {
+    assert.deepStrictEqual(record.genre, "Hip-Hop")
   })
 
-  xit('should have a price', function() {
-
+  it('should have a price', function() {
+    assert.deepStrictEqual(record.price, 10)
   })
 
-  xit('should print the properties as a string', function() {
-
+  it('should print the properties as a string', function() {
+    let expected = "Jay-Z, The Black Album, Hip-Hop, 10";
+    assert.deepStrictEqual(record.printProperties(), expected);
   })
 
-  
+
 
 })
