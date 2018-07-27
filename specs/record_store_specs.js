@@ -1,35 +1,43 @@
 const assert = require("assert");
 const RecordStore = require("../RecordStore.js")
+const Record = require("../Record.js")
 
 describe("RecordStore", function() {
   let recordStore;
+  let blackAlbum;
 
   beforeEach(function() {
-    recordStore = new RecordStore();
+    recordStore = new RecordStore('SuperFly Records', 'Glasgow');
+    blackAlbum = new Record("Jay-Z", "The Black Album", "Hip-Hop", 10);
   })
 
-  xit('should have a name', function() {
-
+  it('should have a name', function() {
+    assert.deepStrictEqual(recordStore.name, 'SuperFly Records');
   })
 
-  xit('should have a City', function() {
-
+  it('should have a City', function() {
+    assert.deepStrictEqual(recordStore.city, 'Glasgow');
   })
 
-  xit('should have an inventory', function () {
-
+  it('should have an inventory', function () {
+    assert.deepStrictEqual(recordStore.inventory, []);
   })
 
-  xit('should have a balance', function() {
-
+  it('should have a balance', function() {
+    assert.deepStrictEqual(recordStore.balance, 500);
   })
 
-  xit('should be able to add records to inventory', function () {
-
+  it('should be able to add records to inventory', function () {
+    recordStore.addRecord(blackAlbum);
+    assert.deepStrictEqual(recordStore.inventory, [blackAlbum]);
   })
 
   xit('should be able to list the inventory as a string', function() {
-
+    recordStore.addRecord(blackAlbum);
+    let actual = recordStore.listInventory();
+    console.log(actual);
+    let expected = "Jay-Z, The Black Album, Hip-Hop, 10";
+    assert.deepStrictEqual(actual, expected);
   })
 
   xit('should be able to sell records', function() {
@@ -41,7 +49,7 @@ describe("RecordStore", function() {
   })
 
   xit('should be able to view records by genre', function () {
-    
+
   })
 
 })
