@@ -28,4 +28,19 @@ RecordCollector.prototype.totalValueOfRecords = function(){
   }, 0)
 }
 
+RecordCollector.prototype.recordCollectionValueByGenre = function(value){
+  let arr = _.filter(this.collection, {genre : value});
+  return arr.reduce(function(acc, record){
+    return acc += record.price;
+  }, 0)
+}
+
+RecordCollector.prototype.mostExpensiveRecord = function () {
+  return _.maxBy(this.collection, 'price');
+}
+
+RecordCollector.prototype.sortCollectionByPrice = function () {
+  return _.orderBy(this.collection, ['price'], ['desc']);
+}
+
 module.exports = RecordCollector;
