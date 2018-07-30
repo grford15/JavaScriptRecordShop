@@ -1,14 +1,23 @@
 const assert = require("assert");
 const RecordStore = require("../RecordStore.js")
 const Record = require("../Record.js")
+const RecordCollector = require("../RecordCollector")
 
 describe("RecordStore", function() {
   let recordStore;
   let blackAlbum;
+  let readyToDie;
+  let nasir;
+  let justified;
+  let billy;
 
   beforeEach(function() {
     recordStore = new RecordStore('SuperFly Records', 'Glasgow');
     blackAlbum = new Record("Jay-Z", "The Black Album", "Hip-Hop", 10);
+    readyToDie = new Record("Notorious BIG", "Ready to Die", "Hip-Hop", 15);
+    nasir = new Record("Nas", "NASIR", "Hip-Hop", 10);
+    justified = new Record("Justin Timberlake", "Justified", "R&B", 10);
+    billy = new RecordCollector("Billy", 150);
   })
 
   it('should have a name', function() {
@@ -29,27 +38,28 @@ describe("RecordStore", function() {
 
   it('should be able to add records to inventory', function () {
     recordStore.addRecord(blackAlbum);
-    assert.deepStrictEqual(recordStore.inventory, [blackAlbum]);
-  })
-
-  xit('should be able to list the inventory as a string', function() {
-    recordStore.addRecord(blackAlbum);
-    let actual = recordStore.listInventory();
-    console.log(actual);
-    let expected = "Jay-Z, The Black Album, Hip-Hop, 10";
-    assert.deepStrictEqual(actual, expected);
+    recordStore.addRecord(nasir);
+    assert.deepStrictEqual(recordStore.inventory, [blackAlbum, nasir]);
   })
 
   xit('should be able to sell records', function() {
-
+    recordStore.addRecord(blackAlbum);
+    recordStore.addRecord(nasir);
+    recordStore.sellRecord(nasir, billy);
+    assert.deepStrictEqual(RecordStore.inventory, [blackAlbum]);
+    assert.deepStrictEqual(billy.collection, [nasir]);
   })
 
   xit('should be able to report the financial situation of the store', function () {
 
   })
 
-  xit('should be able to view records by genre', function () {
-
+  it('should be able to view records by genre', function () {
+    recordStore.addRecord(blackAlbum);
+    recordStore.addRecord(nasir);
+    recordStore.addRecord(justified);
+    let actual = recordStore.sortByGenre("Hip-Hop");
+    assert.deepStrictEqual(actual, [blackAlbum, nasir]);
   })
 
 })

@@ -11,8 +11,18 @@ RecordStore.prototype.addRecord = function (record) {
   this.inventory.push(record);
 };
 
-// RecordStore.prototype.listInventory = function() {
-//   return this.inventory;
-// }
+RecordStore.prototype.sortByGenre = function (genre) {
+  return _.filter(this.inventory, {'genre' : genre})
+}
+
+RecordStore.prototype.sellRecord = function (record, buyer){
+  let newRecord;
+  if(buyer.wallet >= record.price){
+    newRecord = _.remove(this.inventory, function(item){
+      return item === record;
+    });
+
+  } buyer.collection.push(newRecord[0]);
+}
 
 module.exports = RecordStore;
